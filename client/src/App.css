@@ -169,6 +169,10 @@ body {
   font-size: 3.5rem;
 }
 
+#menu-bar-sort-icon{
+  cursor: pointer;
+}
+
 #edit-toolbar {
   background-color: transparent;
   float: right;
@@ -312,6 +316,7 @@ body {
   font-size: 40px;
   display: flex;
   justify-content: space-evenly;
+  background-color: white;
 }
 
 #playlist-cards{
