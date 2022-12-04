@@ -14,11 +14,8 @@ import FastRewindIcon from '@mui/icons-material/FastRewind';
 import StopIcon from '@mui/icons-material/Stop';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import FastForwardIcon from '@mui/icons-material/FastForward';
-/*
-    This React component lists all the top5 lists in the UI.
-    
-    @author McKilla Gorilla
-*/
+
+
 const HomeScreen = () => {
     const { store } = useContext(GlobalStoreContext);
 
@@ -54,7 +51,7 @@ const HomeScreen = () => {
         <div id="playlist-selector">
             <MenuBar/>
             <div id="list-selector-heading">
-            <Fab 
+            {/* <Fab 
                 color="primary" 
                 aria-label="add"
                 id="add-list-button"
@@ -62,7 +59,7 @@ const HomeScreen = () => {
             >
             <AddIcon />
             </Fab>
-            <Typography variant="h4">Your Lists</Typography>
+            <Typography variant="h4">Your Lists</Typography> */}
             </div>
             <div id="playlist-selector-body">
                 <div id="playlist-selector-left">
@@ -106,7 +103,18 @@ const HomeScreen = () => {
                         </div>
                 </div>
             </div>
-            <Statusbar/>
+            {/* <Statusbar/> */}
+            <div id="home-screen-add-list-button">
+                <Fab 
+                    color="primary" 
+                    aria-label="add"
+                    id="add-list-button"
+                    onClick={handleCreateNewList}
+                >
+                <AddIcon />
+                </Fab>
+                <Typography variant="h4" id="your-list-text">Your Lists</Typography>
+            </div>
         </div>)
 }
 

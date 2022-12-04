@@ -244,12 +244,13 @@ body {
   pointer-events: none;
 }
 
-#add-list-button {
+#add-list-button{
   float: left;
   float: top;
   pointer-events:auto;
   width: 35px;
   height: 25px;
+  vertical-align: middle;
 }
 
 #playlist-selector-body{
@@ -265,7 +266,7 @@ body {
   height: 430pt;
   display: flex;
   flex-direction: column;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 #playlist-selector-left{
@@ -319,6 +320,17 @@ body {
   background-color: white;
 }
 
+#home-screen-add-list-button{
+  margin-top: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  justify-content: center;
+  /* background-color: red; */
+  /* text-align: center; */
+
+}
+
 #playlist-cards{
   position: absolute;
   left: 0%;
@@ -328,6 +340,33 @@ body {
   display: flex;
   flex-direction: column;
   overflow: scroll;
+}
+
+.playlist-card{
+  background-color: red;
+  font-weight: bold;
+  display:flex;
+  flex-grow: 1;
+  height: 150px;
+  width: auto;
+}
+
+#playlist-card-name{
+  font-size: 20pt;
+  top: 0;
+  position:absolute;
+
+}
+
+#playlist-card-owner{
+  font-size:10pt;
+  position:relative;
+  top: -15px;
+}
+
+#playlist-card-showmore{
+  margin-left: auto;
+  margin-right: 0;
 }
 
 .list-card,

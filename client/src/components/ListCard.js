@@ -6,6 +6,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
 import ListItem from '@mui/material/ListItem';
 import TextField from '@mui/material/TextField';
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+import AuthContext from '../auth'
 
 /*
     This is a card in our list of top 5 lists. It lets select
@@ -19,6 +21,9 @@ function ListCard(props) {
     const [editActive, setEditActive] = useState(false);
     const [text, setText] = useState("");
     const { idNamePair, selected } = props;
+    const { auth } = useContext(AuthContext);
+
+    const playlistcards="playlist-card"
 
     function handleLoadList(event, id) {
         console.log("handleLoadList for " + id);
@@ -77,26 +82,46 @@ function ListCard(props) {
         <ListItem
             id={idNamePair._id}
             key={idNamePair._id}
-            sx={{ marginTop: '15px', display: 'flex', p: 1 }}
-            style={{ width: '100%', fontSize: '48pt' }}
+            className="playlist-card"
+            // sx={{ marginTop: '15px', display: 'flex', p: 1 }}
+            // style={{ width: '100%', fontSize: '20pt'}}
             button
             onClick={(event) => {
                 handleLoadList(event, idNamePair._id)
             }}
         >
-            <Box sx={{ p: 1, flexGrow: 1 }}>{idNamePair.name}</Box>
-            <Box sx={{ p: 1 }}>
+            <Box 
+                // sx={{ p: 2, flexGrow: 1}}
+                // style={{top:'0', position: 'absolute'}}
+                id="playlist-card-name">
+                {idNamePair.name}
+            </Box>
+            <Box 
+                // sx={{ p: 2, flexGrow: 1}}
+                // style={{position: 'relative'}}
+                id="playlist-card-owner">
+                By: {auth.user.firstName} {auth.user.lastName}
+            </Box>
+            <Box
+                id="playlist-card-showmore">
+                <KeyboardDoubleArrowDownIcon
+                    fontSize='large'
+                />
+            </Box>
+            
+            
+            {/* <Box sx={{ p: 1 }}>
                 <IconButton onClick={handleToggleEdit} aria-label='edit'>
                     <EditIcon style={{fontSize:'48pt'}} />
                 </IconButton>
-            </Box>
-            <Box sx={{ p: 1 }}>
+            </Box> */}
+            {/* <Box sx={{ p: 1 }}>
                 <IconButton onClick={(event) => {
                         handleDeleteList(event, idNamePair._id)
                     }} aria-label='delete'>
                     <DeleteIcon style={{fontSize:'48pt'}} />
                 </IconButton>
-            </Box>
+            </Box> */}
         </ListItem>
         
 
