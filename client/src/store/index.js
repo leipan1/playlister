@@ -263,20 +263,27 @@ function GlobalStoreContextProvider(props) {
 
     // THIS FUNCTION CREATES A NEW LIST
     store.createNewList = async function () {
-        let newListName = "Untitled" + store.newListCounter;
+        console.log("qwociehqwoice")
+        console.log(store.idNamePairs)
+        let num=store.idNamePairs.length
+        store.idNamePairs.forEach((x,i)=>{
+            if(x.name==="Untitled"+num)
+                num++
+            })
+        let newListName = "Untitled" + num;
         const response = await api.createPlaylist(newListName, [], auth.user.email);
-        console.log("createNewList response: " + response);
         if (response.status === 201) {
-            tps.clearAllTransactions();
+            // tps.clearAllTransactions();
             let newList = response.data.playlist;
             storeReducer({
                 type: GlobalStoreActionType.CREATE_NEW_LIST,
                 payload: newList
-            }
+            }   
             );
 
             // IF IT'S A VALID LIST THEN LET'S START EDITING IT
-            history.push("/playlist/" + newList._id);
+            // history.push("/playlist/" + newList._id);
+            store.loadIdNamePairs();
         }
         else {
             console.log("API FAILED TO CREATE A NEW LIST");
