@@ -132,7 +132,7 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     currentModal : CurrentModal.DELETE_LIST,
                     idNamePairs: store.idNamePairs,
-                    currentList: null,
+                    currentList: store.currentList,
                     currentSongIndex: -1,
                     currentSong: null,
                     newListCounter: store.newListCounter,
@@ -323,7 +323,7 @@ function GlobalStoreContextProvider(props) {
             let response = await api.deletePlaylistById(id);
             if (response.data.success) {
                 store.loadIdNamePairs();
-                history.push("/");
+                // history.push("/");
             }
         }
         processDelete(id);
@@ -506,17 +506,14 @@ function GlobalStoreContextProvider(props) {
     store.redo = function () {
         tps.doTransaction();
     }
-    store.canAddNewSong = function() {
-        return (store.currentList !== null && store.currentModal ===CurrentModal.NONE);
+    store.foolproof = function() {
+        return (store.currentModal === CurrentModal.NONE);
     }
     store.canUndo = function() {
-        return ((store.currentList !== null) && tps.hasTransactionToUndo() && store.currentModal === CurrentModal.NONE);
+        return (tps.hasTransactionToUndo() && store.currentModal === CurrentModal.NONE);
     }
     store.canRedo = function() {
-        return ((store.currentList !== null) && tps.hasTransactionToRedo() && store.currentModal === CurrentModal.NONE);
-    }
-    store.canClose = function() {
-        return (store.currentList !== null && store.currentModal === CurrentModal.NONE);
+        return (tps.hasTransactionToRedo() && store.currentModal === CurrentModal.NONE);
     }
 
     store.clearTransactions = function(){

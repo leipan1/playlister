@@ -268,6 +268,7 @@ function ListCard(props) {
                     }
                 </div>
                 <Button
+                    disabled={!store.foolproof()}
                     id='add-song-button'
                     onClick={handleAddNewSong}
                     variant="contained">
@@ -286,7 +287,25 @@ function ListCard(props) {
                     onClick={handleRedo}
                     variant="contained">
                     <RedoIcon />
-            </Button>
+                </Button>
+                <Button
+                    disabled={!store.foolproof()}
+                    id="publish-song-button">
+                    Publish
+                </Button>
+                <Button
+                    disabled={!store.foolproof()}
+                    id="delete-song-button"
+                    onClick={(event)=>{
+                        handleDeleteList(event,idNamePair._id)
+                    }}>
+                    Delete
+                </Button>
+                <Button
+                    disabled={!store.foolproof()}
+                    id="duplicate-song-button">
+                    Duplicate
+                </Button>
             </ListItem>
         </div>
     }
