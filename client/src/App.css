@@ -198,14 +198,6 @@ body {
   cursor: not-allowed;
 }
 
-#top5-list-selector {
-  position: absolute;
-  left: 0%;
-  top: 10%;
-  width: 100%;
-  height: 80%;
-  background-color: var(--swatch-primary);
-}
 
 #top5-workspace {
   position: absolute;
@@ -267,11 +259,13 @@ body {
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+  background-color: white;
 }
 
 #playlist-selector-left{
   width: 60%;
 }
+
 #playlist-selector-right{
   flex-grow: 1;
   float: right;
@@ -334,21 +328,34 @@ body {
 #playlist-cards{
   position: absolute;
   left: 0%;
-  top: 10%;
   width: 100%;
   height: 80%;
   display: flex;
   flex-direction: column;
-  overflow: scroll;
 }
 
 .playlist-card{
-  background-color: red;
   font-weight: bold;
   display:flex;
   flex-grow: 1;
-  height: 150px;
+  height: 120px;
   width: auto;
+  border:1px solid black;
+  border-radius: 10px;
+  background-color:rgb(184, 184, 184);
+  margin: 2px;
+}
+
+.playlist-card-expand{
+  font-weight: bold;
+  display:flex;
+  flex-grow: 1;
+  height: 550px;
+  width: auto;
+  border:1px solid black;
+  border-radius: 10px;
+  background-color:rgb(184, 184, 184);
+  margin: 2px;
 }
 
 #playlist-card-name{
@@ -359,15 +366,35 @@ body {
 }
 
 #playlist-card-owner{
-  font-size:10pt;
-  position:relative;
-  top: -15px;
+  font-size:12pt;
+  position:absolute;
+  top: 40px;
 }
 
 #playlist-card-showmore{
-  margin-left: auto;
+  position: absolute;
+  bottom:10px;
+  right:10px;
+  /* margin-left: auto;
   margin-right: 0;
+  bottom:0;
+  right:0; */
 }
+
+#playlist-song-cards{
+  position: absolute;
+  top:80px;
+  width: 95%;
+  height: 70%;
+  overflow-y: scroll;
+
+}
+
+#playlist-edit-name{
+  position:relative;
+  top:-235px;
+}
+
 
 .list-card,
 .selected-list-card,
@@ -431,6 +458,31 @@ body {
   width: 80%;
   height: 100%;
   background-color: var(--swatch-primary);
+}
+
+#add-song-button{
+  text-align: center;
+  cursor: pointer;
+  position:absolute;
+  top:10px;
+  right:10px;
+}
+
+#undo-button{
+  text-align: center;
+  cursor: pointer;
+  position:absolute;
+  bottom: 40px;
+  left: 20px;
+
+}
+#redo-button{
+  text-align: center;
+  cursor: pointer;
+  position:absolute;
+  bottom: 40px;
+  left: 90px;
+
 }
 
 .item-number,

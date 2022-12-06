@@ -73,7 +73,6 @@ function SongCard(props) {
                 onClick={handleRemoveSong}
             />
             
-
         </div>
     );
 }
