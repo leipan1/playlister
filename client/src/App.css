@@ -371,7 +371,7 @@ body {
   top: 40px;
 }
 
-#playlist-card-showmore{
+.playlist-card-showmore{
   position: absolute;
   bottom:10px;
   right:10px;

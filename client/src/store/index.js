@@ -278,10 +278,10 @@ function GlobalStoreContextProvider(props) {
                 payload: newList
             }   
             );
-
             // IF IT'S A VALID LIST THEN LET'S START EDITING IT
             // history.push("/playlist/" + newList._id);
             store.loadIdNamePairs();
+            console.log("MADE NEW PLAYLIST WITH ID:"+store.currentList._id)
         }
         else {
             console.log("API FAILED TO CREATE A NEW LIST");
@@ -401,10 +401,10 @@ function GlobalStoreContextProvider(props) {
     store.getPlaylistSize = function() {
         return store.currentList.songs.length;
     }
-    store.addNewSong = function() {
-        let index = this.getPlaylistSize();
-        this.addCreateSongTransaction(index, "Untitled", "?", "dQw4w9WgXcQ");
-    }
+    // store.addNewSong = function() {
+    //     let index = this.getPlaylistSize();
+    //     this.addCreateSongTransaction(index, "Untitled", "?", "dQw4w9WgXcQ");
+    // }
     // THIS FUNCTION CREATES A NEW SONG IN THE CURRENT LIST
     // USING THE PROVIDED DATA AND PUTS THIS SONG AT INDEX
     store.createSong = function(index, song) {
@@ -543,6 +543,58 @@ function GlobalStoreContextProvider(props) {
             payload: null
         });
     }
+
+    store.duplicatePlaylist = async function(){
+        // console.log("DUPLICATING PLAYLIST")
+        // console.log(store.currentList)
+        let playlistToBeDuplicated=store.currentList
+        let num=0
+        let oldname=store.currentList.name
+        let newname=store.currentList.name
+        store.idNamePairs.forEach((x,i)=>{
+            if(x.name===newname){
+                newname=oldname+num
+                num++
+            }
+        })
+        // console.log("EWIFIEUWFHIWUEHFUWIEHF")
+        // console.log(store.currentList.songs)
+        let playlistsongs=store.currentList.songs
+        const response = await api.createPlaylist(newname,playlistsongs,auth.user.email);
+        if(response.status===201){
+            let newList=response.data.playlist;
+            storeReducer({
+                type: GlobalStoreActionType.CREATE_NEW_LIST,
+                payload: newList
+            }   
+            );
+            store.loadIdNamePairs();
+        }
+        else {
+            console.log("API FAILED TO CREATE A NEW LIST");
+        }
+        console.log("HELLO")
+        console.log(store.currentList._id)
+        var showmoreButton=document.getElementById('playlist-card-showmore'+store.currentList._id)
+        simulateMouseClick(showmoreButton)
+    }
+
+
+    const mouseClickEvents = ['mousedown', 'click', 'mouseup'];
+    function simulateMouseClick(element){
+        mouseClickEvents.forEach(mouseEventType =>
+            element.dispatchEvent(
+            new MouseEvent(mouseEventType, {
+                view: window,
+                bubbles: true,
+                cancelable: true,
+                buttons: 1
+            })
+            )
+        );
+    }
+
+    
 
     return (
         <GlobalStoreContext.Provider value={{

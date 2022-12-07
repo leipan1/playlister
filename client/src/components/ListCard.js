@@ -2,7 +2,7 @@ import SongCard from './SongCard'
 import MUIEditSongModal from './MUIEditSongModal'
 import MUIRemoveSongModal from './MUIRemoveSongModal'
 
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { GlobalStoreContext } from '../store'
 import Box from '@mui/material/Box';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -28,7 +28,8 @@ function ListCard(props) {
     const { idNamePair, selected } = props;
     const { auth } = useContext(AuthContext);
     const [loadPlaylist, setLoadPlaylist] = useState(false);
-
+    const [playlistid, setplaylistid]= useState(null)
+    
     
 
     let modalJSX = "";
@@ -41,8 +42,8 @@ function ListCard(props) {
 
 
     function handleLoadList(event, id) {
+        console.log("LOADING LIST!!!")
         let status=loadPlaylist
-        console.log(status)
         if(store.currentList && !status){
             alert("Please close opened playlist first")
         }
@@ -51,14 +52,13 @@ function ListCard(props) {
             console.log("handleLoadList for " + id);
             
             if (!event.target.disabled && !status) {
-                console.log("setting current list")
                 let _id = event.target.id;
                 if (_id.indexOf('list-card-text-') >= 0)
                     _id = ("" + _id).substring("list-card-text-".length);
                 store.setCurrentList(id);
+                setplaylistid(id)
             }
         }
-
     }
 
 
@@ -90,11 +90,26 @@ function ListCard(props) {
         if (event.code === "Enter") {
             console.log("ENTER!!!")
             let id = event.target.id.substring("list-".length);
-            console.log(id)
-            store.changeListName(id, text);
-            toggleEdit();
+            let nameexist=false
+            store.idNamePairs.forEach((x,i)=>{
+                if(x.name===text){
+                    nameexist=true;
+                }
+            })
+            if(nameexist){
+                alert("Playlist name already exist")
+            }
+            else{
+                store.changeListName(id, text);
+                toggleEdit();
+            }
         }
     }
+
+    function handleDuplicatePlaylist(event){
+        store.duplicatePlaylist();
+    }
+
     function handleUpdateText(event) {
         setText(event.target.value);
     }
@@ -167,7 +182,7 @@ function ListCard(props) {
                     By: {auth.user.firstName} {auth.user.lastName}
                 </Box>
                 <Box
-                    id="playlist-card-showmore"
+                    className="playlist-card-showmore"
                     onClick={(event)=>{
                         handleLoadList(event,idNamePair._id)
                     }}
@@ -257,7 +272,7 @@ function ListCard(props) {
                         +
                 </div> */}
                 <Box
-                    id="playlist-card-showmore"
+                    className='playlist-card-showmore'
                     onClick={(event)=>{
                         handleLoadList(event,idNamePair._id)
                     }}
@@ -265,6 +280,7 @@ function ListCard(props) {
                     <KeyboardDoubleArrowUpIcon
                         fontSize='large'
                         cursor= 'pointer'
+                        id={'playlist-card-showmore'+playlistid}
                         onClick={handleClose}
                     />
                 </Box>
@@ -309,7 +325,9 @@ function ListCard(props) {
                 </Button>
                 <Button
                     disabled={!store.foolproof()}
-                    id="duplicate-song-button">
+                    id="duplicate-song-button"
+                    onClick={handleDuplicatePlaylist}
+                    >
                     Duplicate
                 </Button>
             </ListItem>
