@@ -29,6 +29,8 @@ function ListCard(props) {
     const { auth } = useContext(AuthContext);
     const [loadPlaylist, setLoadPlaylist] = useState(false);
 
+    
+
     let modalJSX = "";
     if (store.isEditSongModalOpen()) {
         modalJSX = <MUIEditSongModal />;
@@ -40,17 +42,21 @@ function ListCard(props) {
 
     function handleLoadList(event, id) {
         let status=loadPlaylist
-        setLoadPlaylist(!status)
-        console.log("handleLoadList for " + id);
-        if (!event.target.disabled) {
-            let _id = event.target.id;
-            if (_id.indexOf('list-card-text-') >= 0)
-                _id = ("" + _id).substring("list-card-text-".length);
-
-            //console.log("load " + event.target.id);
-
-            // CHANGE THE CURRENT LIST
-            store.setCurrentList(id);
+        console.log(status)
+        if(store.currentList && !status){
+            alert("Please close opened playlist first")
+        }
+        else{
+            setLoadPlaylist(!status)
+            console.log("handleLoadList for " + id);
+            
+            if (!event.target.disabled && !status) {
+                console.log("setting current list")
+                let _id = event.target.id;
+                if (_id.indexOf('list-card-text-') >= 0)
+                    _id = ("" + _id).substring("list-card-text-".length);
+                store.setCurrentList(id);
+            }
         }
 
     }

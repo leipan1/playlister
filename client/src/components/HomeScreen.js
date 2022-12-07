@@ -106,6 +106,7 @@ const HomeScreen = () => {
             {/* <Statusbar/> */}
             <div id="home-screen-add-list-button">
                 <Fab 
+                    disabled={!store.canAddList()}
                     color="primary" 
                     aria-label="add"
                     id="add-list-button"

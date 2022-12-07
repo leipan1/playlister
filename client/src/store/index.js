@@ -263,8 +263,6 @@ function GlobalStoreContextProvider(props) {
 
     // THIS FUNCTION CREATES A NEW LIST
     store.createNewList = async function () {
-        console.log("qwociehqwoice")
-        console.log(store.idNamePairs)
         let num=store.idNamePairs.length
         store.idNamePairs.forEach((x,i)=>{
             if(x.name==="Untitled"+num)
@@ -375,6 +373,7 @@ function GlobalStoreContextProvider(props) {
     store.isRemoveSongModalOpen = () => {
         return store.currentModal === CurrentModal.REMOVE_SONG;
     }
+    
 
     // THE FOLLOWING 8 FUNCTIONS ARE FOR COORDINATING THE UPDATING
     // OF A LIST, WHICH INCLUDES DEALING WITH THE TRANSACTION STACK. THE
@@ -521,6 +520,9 @@ function GlobalStoreContextProvider(props) {
     }
     store.canRedo = function() {
         return (tps.hasTransactionToRedo() && store.currentModal === CurrentModal.NONE);
+    }
+    store.canAddList =function() {
+        return store.currentList===null;
     }
 
     store.clearTransactions = function(){

@@ -239,11 +239,11 @@ body {
 #add-list-button{
   float: left;
   float: top;
-  pointer-events:auto;
   width: 35px;
   height: 25px;
   vertical-align: middle;
 }
+
 
 #playlist-selector-body{
   display: flex;
