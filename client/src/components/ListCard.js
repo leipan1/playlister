@@ -1,6 +1,8 @@
 import SongCard from './SongCard'
 import MUIEditSongModal from './MUIEditSongModal'
 import MUIRemoveSongModal from './MUIRemoveSongModal'
+import HomeScreen from './HomeScreen'
+
 
 import { useContext, useEffect, useState } from 'react'
 import { GlobalStoreContext } from '../store'
@@ -25,10 +27,11 @@ function ListCard(props) {
     const { store } = useContext(GlobalStoreContext);
     const [editActive, setEditActive] = useState(false);
     const [text, setText] = useState("");
-    const { idNamePair, selected } = props;
+    const { idNamePair, selected, triggerYTPlayer } = props;
     const { auth } = useContext(AuthContext);
     const [loadPlaylist, setLoadPlaylist] = useState(false);
     const [playlistid, setplaylistid]= useState(null)
+
     
     
 
@@ -48,9 +51,9 @@ function ListCard(props) {
             alert("Please close opened playlist first")
         }
         else{
+            props.triggerYTPlayer()
             setLoadPlaylist(!status)
             console.log("handleLoadList for " + id);
-            
             if (!event.target.disabled && !status) {
                 let _id = event.target.id;
                 if (_id.indexOf('list-card-text-') >= 0)
