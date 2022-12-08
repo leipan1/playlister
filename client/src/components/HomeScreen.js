@@ -41,6 +41,7 @@ const HomeScreen = () => {
     function incSong(event) {
         let num=currentSong+1
         num=num%playlist.length
+        store.setPlaySongIndex(num)
         setCurrentSong(num)
     }
     function decSong(event) {
@@ -48,6 +49,7 @@ const HomeScreen = () => {
         if(num<0){
             num=playlist.length-1
         }
+        store.setPlaySongIndex(num)
         setCurrentSong(num)
     }
 
@@ -90,14 +92,12 @@ const HomeScreen = () => {
     // }
 
     const handleTriggerYoutubePlayer=()=>{
-        console.log("YOUTUBER PLAYER SHOULD WORK")
-        console.log("was playlist loaded?::"+loadPlaylist)
+        console.log("TRIGGER YT PLAYER")
         setCurrentSong(0)
         setLoadPlaylist(!loadPlaylist)
     }
 
     function handlePlay(){
-        console.log("PLAY BUTTON")
         console.log(currentEvent)
         currentEvent.playVideo();
     }
@@ -110,7 +110,7 @@ const HomeScreen = () => {
     if (store) {
         listCard = 
             <List sx={{ width: '90%', left: '5%', bgcolor: 'background.paper' }} 
-                // onClick={handleTriggerYoutubePlayer}
+                //onClick={handleTriggerYoutubePlayer}
             >
             {
                 store.idNamePairs.map((pair) => (
@@ -119,6 +119,8 @@ const HomeScreen = () => {
                         idNamePair={pair}
                         selected={false}
                         triggerYTPlayer={handleTriggerYoutubePlayer}
+                        setplaylistStatus={setLoadPlaylist}
+                        playlistStatus={loadPlaylist}
                     />
                 ))
             }
@@ -139,7 +141,7 @@ const HomeScreen = () => {
             </div>
             <div id="youtube-player">
                 <Youtube 
-                    videoId={playlist[currentSong]} 
+                    videoId={playlist[store.playSongIndex]} 
                     opts={opts}
                     // onReady={onPlayerReady}
                     // onStateChange={onPlayerStateChange}

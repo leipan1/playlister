@@ -58,6 +58,8 @@ function GlobalStoreContextProvider(props) {
         listIdMarkedForDeletion: null,
         listMarkedForDeletion: null,
         songList:null,
+        playSongIndex:-1
+        
     });
     const history = useHistory();
 
@@ -590,6 +592,11 @@ function GlobalStoreContextProvider(props) {
         console.log(store.currentList._id)
         var showmoreButton=document.getElementById('playlist-card-showmore'+store.currentList._id)
         simulateMouseClick(showmoreButton)
+    }
+
+    store.setPlaySongIndex=function(index){
+        store.playSongIndex=index;
+        console.log("set play song index at:"+store.playSongIndex)
     }
 
 

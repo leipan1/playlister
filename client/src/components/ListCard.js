@@ -27,7 +27,7 @@ function ListCard(props) {
     const { store } = useContext(GlobalStoreContext);
     const [editActive, setEditActive] = useState(false);
     const [text, setText] = useState("");
-    const { idNamePair, selected, triggerYTPlayer } = props;
+    const { idNamePair, selected, triggerYTPlayer, playlistStatus, setplaylistStatus} = props;
     const { auth } = useContext(AuthContext);
     const [loadPlaylist, setLoadPlaylist] = useState(false);
     const [playlistid, setplaylistid]= useState(null)
@@ -46,6 +46,7 @@ function ListCard(props) {
 
     function handleLoadList(event, id) {
         console.log("LOADING LIST!!!")
+        store.setPlaySongIndex(0)
         let status=loadPlaylist
         if(store.currentList && !status){
             alert("Please close opened playlist first")
@@ -87,11 +88,11 @@ function ListCard(props) {
         let _id = event.target.id;
         _id = ("" + _id).substring("delete-list-".length);
         store.markListForDeletion(id);
+        props.setplaylistStatus(!props.playlistStatus)
     }
 
     function handleKeyPress(event) {
         if (event.code === "Enter") {
-            console.log("ENTER!!!")
             let id = event.target.id.substring("list-".length);
             let nameexist=false
             store.idNamePairs.forEach((x,i)=>{
@@ -165,6 +166,10 @@ function ListCard(props) {
             <ListItem
                 id={idNamePair._id}
                 key={idNamePair._id}
+                // onClick={(event)=>{
+                //     props.triggerYTPlayer();
+                //     store.setCurrentList(event.target.id);
+                // }}
                 // sx={{ marginTop: '15px', display: 'flex', p: 1 }}
                 // style={{ width: '100%', fontSize: '20pt'}}
                 // button

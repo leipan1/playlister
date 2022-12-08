@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { GlobalStoreContext } from '../store'
 import MUIEditSongModal from './MUIEditSongModal';
 
@@ -6,6 +6,8 @@ function SongCard(props) {
     const { store } = useContext(GlobalStoreContext);
     const [ draggedTo, setDraggedTo ] = useState(0);
     const { song, index } = props;
+
+        
 
     function handleDragStart(event) {
         event.dataTransfer.setData("song", index);
@@ -43,6 +45,7 @@ function SongCard(props) {
             store.showEditSongModal(index, song);
         }
     }
+
 
     let cardClass = "list-card unselected-list-card";
     return (
